@@ -1,5 +1,6 @@
 <script>
   import progress from './app-store';
+  import Spring from './Spring.svelte';
 
   export let appName;
 </script>
@@ -8,7 +9,8 @@
   <h1 class="capitalize-it">{appName}</h1>
 </div>
 
-<progress value="{$progress}"></progress>
+<!-- <progress value="{$progress}"></progress> -->
+<Spring/>
 
 <style>
   .title-warap {

@@ -1,5 +1,5 @@
 // import { writable } from 'svelte/store';
-// for animation use 'tweened' instead of 'writable'
+// for animation use 'tweened' or 'spring' instead of 'writable'. They support only date and numbers
 import { tweened } from 'svelte/motion';
 import { cubicIn } from 'svelte/easing';
 
