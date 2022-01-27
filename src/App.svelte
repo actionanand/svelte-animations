@@ -1,5 +1,7 @@
 <script>
   import { fade, fly, slide, scale } from 'svelte/transition';
+  // to remove chumpy effect when we add items
+  import { flip } from 'svelte/animate';
 
   import progress from './app-store';
   import Spring from './Spring.svelte';
@@ -10,9 +12,16 @@
   let boxInput;
   let boxes = [];
   let showPara = false;
+  let isSpringOn = false;
+
+  $: if(isSpringOn) {
+    setTimeout(() => {
+      isSpringOn = false;
+    }, 10000);
+  }
 
   function addBox() {
-    boxes = [...boxes, boxInput.value];
+    boxes = [boxInput.value, ...boxes];
     boxInput.value = '';
   }
 
@@ -25,32 +34,45 @@
   <h1 class="capitalize-it">{appName}</h1>
 </div>
 
-<!-- <progress value="{$progress}"></progress> -->
-<!-- <Spring/> -->
 
-<button on:click="{() => showPara = !showPara}">Toggle</button>
-{#if showPara}
-  <p transition:fly="{{x: 300}}">Can you see me?</p>
-{/if}
+<button on:click="{() => isSpringOn = !isSpringOn}">
+  {isSpringOn? 'Transition' : 'Spring'} Animation
+</button>
 
-<hr>
+<progress value="{$progress}"></progress>
 
-<input type="text" bind:this="{boxInput}">
-<button on:click="{addBox}">Add Box</button>
-{#if showPara}
-  {#each boxes as box (box)}
-    <!-- <div class="box" transition:fade>{box}</div>   -->
-    <!-- <div class="box" transition:scale>{box}</div> -->
-    <!-- if loacal modifier added, animation will be only for individual items, not when added altogether -->
-    <div class="box" transition:fly|local="{{easing: cubicIn, opacity: 0, x: 0, y: 300}}"
-      on:click="{discard.bind(this, box)}"
-      on:introstart="{() => console.log('Adding Animation begins')}"
-      on:introend="{() => console.log('Adding animation ends')}"
-      on:outrostart="{() => console.log('Removing Animation begins')}"
-      on:outroend="{() => console.log('Removing animation ends')}">
-      {box}
-    </div>
-  {/each}
+{#if isSpringOn}
+<div>
+  <Spring/>
+</div>
+{:else if !isSpringOn}
+  <div>
+    <button on:click="{() => showPara = !showPara}">Toggle</button>
+    {#if showPara}
+      <p transition:fly="{{x: 300}}">Can you see me?</p>
+      <p in:fade out:fly="{{x: -300}}">I'm visibel, right?</p>
+    {/if}
+
+    <hr>
+
+    <input type="text" bind:this="{boxInput}">
+    <button on:click="{addBox}">Add Box</button>
+
+        <!-- if loacal modifier added, animation will be only for individual items, not when added altogether -->
+    {#if showPara}
+      {#each boxes as box (box)}
+        <div class="box" transition:fly|local="{{easing: cubicIn, opacity: 0, x: 0, y: 300}}"
+          on:click="{discard.bind(this, box)}"
+          on:introstart="{() => console.log('Adding Animation begins')}"
+          on:introend="{() => console.log('Adding animation ends')}"
+          on:outrostart="{() => console.log('Removing Animation begins')}"
+          on:outroend="{() => console.log('Removing animation ends')}"
+          animate:flip="{{duration: 900}}">
+          {box}
+        </div>
+      {/each}
+    {/if}
+  </div>
 {/if}
 
 <style>

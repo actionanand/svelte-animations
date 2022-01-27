@@ -11,9 +11,13 @@ const progress = tweened(beginingValue, {
   easing: cubicIn
 });
 
-setTimeout(() => {
+setInterval(() => {
   progress.set(0.5);
 }, 1500);
+
+setInterval(() => {
+  progress.set(0);
+}, 3000);
 
 const customProgress = {
   subscribe: progress.subscribe

@@ -121,3 +121,4 @@ surge public my-project.surge.sh
 - [npm-run-all NPM Package](https://www.npmjs.com/package/npm-run-all)
 - [tweened - svelte animation](https://svelte.dev/docs#tweened)
 - [Svelte/easing - github resource](https://github.com/sveltejs/svelte/blob/master/src/runtime/easing/index.ts)
+- [Deferred Transitions](https://svelte.dev/tutorial/deferred-transitions)
