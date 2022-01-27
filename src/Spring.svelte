@@ -1,7 +1,8 @@
 <script>
-  import { writable } from "svelte/store";
-  
-  let cards = writable([
+  import { writable } from 'svelte/store';
+  import { spring } from 'svelte/motion';
+
+  const cardArray =   [
     {
       id: "c1",
       color: "red"
@@ -18,8 +19,9 @@
       id: "c4",
       color: "orange"
     }
-  ]);
-  let cardPos = writable([
+  ];
+
+  const cardPosAr = [
     {
       rotation: 10,
       dx: 0
@@ -36,7 +38,15 @@
       rotation: -25,
       dx: 0
     }
-  ]);
+  ];
+  
+  let cards = writable(cardArray);
+
+  let cardPos = spring(cardPosAr, {
+    stiffness: 0.05, // default is 0.5, it's between 0 and 1
+    damping: 0.9, // default is 0.8, it's between 0 and 1
+    precision: 0.001
+  });
 
   function discard(index) {
     cardPos.update(items => {
