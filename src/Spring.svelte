@@ -1,6 +1,9 @@
 <script>
   import { writable } from 'svelte/store';
   import { spring } from 'svelte/motion';
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
 
   const cardArray =   [
     {
@@ -90,4 +93,5 @@
         on:click={discard.bind(this, i)} />
     {/each}
   </div>
+  <button on:click="{dispatch('close-spring')}">Go Back</button>
 </div>
