@@ -14,11 +14,6 @@
   let showPara = false;
   let isSpringOn = false;
 
-  $: if(isSpringOn) {
-    setTimeout(() => {
-      isSpringOn = false;
-    }, 10000);
-  }
 
   function addBox() {
     boxes = [boxInput.value, ...boxes];
@@ -35,15 +30,13 @@
 </div>
 
 
-<button on:click="{() => isSpringOn = !isSpringOn}">
-  {isSpringOn? 'Transition' : 'Spring'} Animation
-</button>
+<button on:click="{() => isSpringOn = true}" disabled="{isSpringOn}"> Spring Animation </button>
 
 <progress value="{$progress}"></progress>
 
 {#if isSpringOn}
 <div>
-  <Spring/>
+  <Spring on:close-spring="{() => isSpringOn = false}" />
 </div>
 {:else if !isSpringOn}
   <div>
