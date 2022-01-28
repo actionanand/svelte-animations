@@ -87,6 +87,10 @@
     border-radius: 5px;
     padding: 1rem;
   }
+
+  button {
+    cursor: pointer;
+  }
 </style>
 
 
