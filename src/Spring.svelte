@@ -82,6 +82,14 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     border-radius: 5px;
   }
+
+  .button-close{
+    padding: 1rem;
+  }
+
+  button {
+    cursor: pointer;
+  }
 </style>
 
 <div class="page">
@@ -93,5 +101,7 @@
         on:click={discard.bind(this, i)} />
     {/each}
   </div>
-  <button on:click="{dispatch('close-spring')}">Go Back</button>
+  <div class="button-close">
+    <button on:click="{() => dispatch('close-spring')}">Go Back</button>
+  </div>
 </div>

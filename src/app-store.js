@@ -16,8 +16,12 @@ setInterval(() => {
 }, 1500);
 
 setInterval(() => {
-  progress.set(0);
+  progress.set(1);
 }, 3000);
+
+setInterval(() => {
+  progress.set(0);
+}, 4500);
 
 const customProgress = {
   subscribe: progress.subscribe
